@@ -2,19 +2,16 @@ import React,{useState} from 'react'
 
 export default function TextForm(props) {
     const handleUpClick=()=>{
-        console.log("Uppercase was clicked"+ text);
         let newText = text.toUpperCase();
         setText(newText);
         props.showAlert("Converted to uppercase","success");
     }
     const handleLowClick=()=>{
-        console.log("Lowercase was clicked"+ text);
         let newText = text.toLowerCase();
         setText(newText);
         props.showAlert("Converted to lowercase","success");
     }
     const handleOnChange=(event)=>{
-        console.log("Uppercase was changed");
         setText(event.target.value);
     }
     const clearText=()=>{
@@ -22,10 +19,10 @@ export default function TextForm(props) {
         setText(newText);
     }
     const handleCopy=()=>{
-        var text=document.getElementById("myBox");
-        text.select();
-        navigator.clipboard.writeText(text.value);
-        document.getSelection().removeAllRanges();  //after coping the text should not be selected
+        // var text=document.getElementById("myBox");
+        // text.select();
+        navigator.clipboard.writeText(text);
+       // document.getSelection().removeAllRanges();  //after coping the text should not be selected
         props.showAlert("Copied to clipboard","success");
     }
     const handleExtraSpaces=()=>{
@@ -54,21 +51,7 @@ export default function TextForm(props) {
             setText(newText.join(" "));
             props.showAlert("Converted to title case","success");
         }
-    // function wordCount(content){
-    //         if(content===""){
-    //           return 0;
-    //         }
-    //         let arr = content.split(" ");
-    //         let len = arr.length;
-    //         let count=0;
-            
-    //         for(let i=0;i<len;i++){
-    //           if(arr[i]==='' || arr[i]===' '){
-    //              count++;
-    //           }
-    //         }
-    //         return len-count;
-    //       }
+   
     const [text,setText] = useState('');
   //  setText=('New Text');
   return (
@@ -91,7 +74,7 @@ export default function TextForm(props) {
     </div>
     <div className="container my-3" style={{color:props.mode==='light'?'black':'white'}}>
         <h3>Your text summary</h3>
-        <p>{text.split(" ").filter((element)=>{return element.length !==0}).length} words and {text.length} characters</p>
+        <p>{text.split(/\s+/).filter((element)=>{return element.length !==0}).length} words and {text.length} characters</p>
         {/* <p>{wordCount(text)} words and {text.length} characters</p> */}
         <p>{0.008 * text.split(" ").filter((element)=>{return element.length !==0}).length} Minutes to read </p>
         <h3>Preview</h3>
