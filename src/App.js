@@ -50,7 +50,7 @@ function App() {
           <Route exec path="/about" element={<About/>} />
           <Route exec path="/" element={<TextForm showAlert={showAlert} heading="Enter the text to apply" mode={mode}/>} />
       </Routes> */}
-      <TextForm showAlert={showAlert} heading="Enter the text to apply" mode={mode}/>
+    <TextForm showAlert={showAlert} heading=" Try TextFormatter - Word counter, Character counter, Remove symbols & Extra spaces" mode={mode}/> 
     </div>
     <Footer />
     {/* </Router> */}
