@@ -18,11 +18,9 @@ export default function TextForm(props) {
         console.log("Uppercase was changed");
         setText(event.target.value);
     }
-  
     const clearText=()=>{
         let  newText='';
         setText(newText);
-
     }
     const handleCopy=()=>{
         var text=document.getElementById("myBox");
@@ -36,6 +34,27 @@ export default function TextForm(props) {
         props.showAlert("Extra spaces removed","success");
 
     }
+    const handleSpeak = () => {
+        let msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        window.speechSynthesis.speak(msg);
+      }
+    const handleTextExtract =()=>{      //it allows only alphanumeric and forward slash(/)
+        const regex = /[0-9/A-Z/a-z/ /]/g;
+        const letters = text.match(regex);
+        const res1 = letters.join('');
+        setText(res1);
+        props.showAlert("Removed all symbols except '/'","success");
+        };
+        const handleTitleCase = () => {
+            let newText = text.split(" ").map((currentValue) => {
+                let newText = currentValue[0].toUpperCase() + currentValue.slice(1);
+                return newText;
+            });
+            setText(newText.join(" "));
+            props.showAlert("Converted to title case","success");
+        }
+   
     const [text,setText] = useState('');
   //  setText=('New Text');
   return (
@@ -48,10 +67,12 @@ export default function TextForm(props) {
     </div>
     <button className="btn btn-primary mx-1" onClick={handleUpClick}>Convert to Uppercase</button>
     <button className="btn btn-primary mx-1" onClick={handleLowClick}>Convert to LowerCase</button>
-    <button className="btn btn-primary mx-1" onClick={clearText}>Clear</button>
-    <button className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
     <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>Remove Extra spaces</button>
-
+    <button className="btn btn-primary mx-1" onClick={handleTextExtract}>Remove symbols</button>
+    <button className="btn btn-primary mx-1" onClick={handleTitleCase}>Title Case</button>
+    <button className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
+    <button className="btn btn-primary mx-1" onClick={handleSpeak}>Speak</button>
+    <button className="btn btn-primary mx-1" onClick={clearText}>Clear</button>
 
     </div>
     <div className="container my-3" style={{color:props.mode==='light'?'black':'white'}}>
